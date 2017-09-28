@@ -35,6 +35,9 @@
 
 int periodCounter = 1;
 
+NSMutableArray<NSString *> *teamAarray;
+NSMutableArray<NSString *> *teamBarray;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -47,7 +50,7 @@ int periodCounter = 1;
 }
 
 - (IBAction)NewGameButton:(UIButton *)sender {
-    UIAlertController* setTeamA = [UIAlertController
+    UIAlertController *setTeamA = [UIAlertController
                                         alertControllerWithTitle: @"Nouvelle Partie - Équipe maison"
                                         message: @"Veuillez entrer le nom et numéro des joueur de l'équipe"
                                         preferredStyle:UIAlertControllerStyleAlert];
@@ -74,14 +77,20 @@ int periodCounter = 1;
                          handler:^(UIAlertAction *action) {
                              NSArray<UITextField *> *input = setTeamA.textFields;
                              
-                             _teamA.text = [NSString stringWithFormat:@"Équipe - %@", input[0].text];
+                             teamAarray[0] = input[1].text;
+                             teamAarray[1] = input[2].text;
+                             teamAarray[2] = input[3].text;
+                             teamAarray[3] = input[4].text;
+                             teamAarray[4] = input[5].text;
+                             
+                             _teamA.text = [NSString stringWithFormat:@"Équipe %@", input[0].text];
                              _playerA1.text = input[1].text;
                              _playerA2.text = input[2].text;
                              _playerA3.text = input[3].text;
                              _playerA4.text = input[4].text;
                              _playerA5.text = input[5].text;
                              
-                             UIAlertController* setTeamB = [UIAlertController
+                             UIAlertController *setTeamB = [UIAlertController
                                                             alertControllerWithTitle: @"Nouvelle Partie - Équipe visiteur"
                                                             message: @"Veuillez entrer le nom et numéro des joueur de l'équipe"
                                                             preferredStyle:UIAlertControllerStyleAlert];
@@ -108,6 +117,12 @@ int periodCounter = 1;
                                                   handler:^(UIAlertAction *action) {
                                                       NSArray<UITextField *> *input = setTeamB.textFields;
                                                       
+                                                      teamBarray[0] = input[1].text;
+                                                      teamBarray[1] = input[2].text;
+                                                      teamBarray[2] = input[3].text;
+                                                      teamBarray[3] = input[4].text;
+                                                      teamBarray[4] = input[5].text;
+                                                      
                                                       _teamB.text = [NSString stringWithFormat:@"Équipe - %@", input[0].text];
                                                       _playerB1.text = input[1].text;
                                                       _playerB2.text = input[2].text;
@@ -122,13 +137,15 @@ int periodCounter = 1;
 
 - (IBAction)ChangePeriod:(UIButton *)sender {
     int nextPeriod = periodCounter + 1;
+    int scoreA = 2;
+    int scoreB = 1;
     NSString *message = @"";
     if (nextPeriod >= 4) {
         message = @"finir la partie";
     } else {
-        message = [NSString stringWithFormat:@"passer à la %i", nextPeriod];
+        message = [NSString stringWithFormat:@"passer à la période %i", nextPeriod];
     }
-    UIAlertController* areYouSure = [UIAlertController
+    UIAlertController *areYouSure = [UIAlertController
                                      alertControllerWithTitle: @"Changer de période"
                                      message: [NSString stringWithFormat:@"Êtes-vous sûr de vouloir %@", message]
                                      preferredStyle:UIAlertControllerStyleAlert];
@@ -138,11 +155,28 @@ int periodCounter = 1;
                          handler:^(UIAlertAction *action) {
                              periodCounter ++;
                              _period.text = [NSString stringWithFormat:@"Période : %i", periodCounter];
-                             if (nextPeriod + 1 >= 3) {
+                             if (nextPeriod + 1 >= 4) {
                                  [sender setTitle:@"fin de partie" forState:UIControlStateNormal];
                              }
                              if (nextPeriod == 4) {
                                  _ChangerPeriodButton.enabled = NO;
+                                 NSString *endGameMessage = @"";
+                                 if (scoreA < scoreB) {
+                                     endGameMessage = [NSString stringWithFormat:@"%@ a gagné!", _teamB.text];
+                                 } else if (scoreA > scoreB) {
+                                     endGameMessage = [NSString stringWithFormat:@"%@ a gagné!", _teamA.text];
+                                 } else {
+                                     endGameMessage = @"C'est une partie null!";
+                                 }
+                                 UIAlertController *endGame = [UIAlertController
+                                                               alertControllerWithTitle: @"Fin de partie"
+                                                               message: endGameMessage
+                                                               preferredStyle:UIAlertControllerStyleAlert];
+                                 [endGame addAction:[UIAlertAction
+                                                      actionWithTitle:@"OK"
+                                                      style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {}]];
+                                 [self presentViewController:endGame animated:YES completion:nil];
                              }
 
     }]];

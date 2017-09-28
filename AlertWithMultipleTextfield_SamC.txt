@@ -1,0 +1,99 @@
+//
+//  ViewController.m
+//  HockeyLeague
+//
+//  Created by Larivière, Maxime on 17-09-14.
+//  Copyright © 2017 Larivière, Maxime, Croteau, Samuel, Laroche, Samuel, Pérami, Kian. All rights reserved.
+//
+
+#import "ViewController.h"
+
+@interface ViewController ()
+
+- (IBAction)NewGameButton:(UIButton *)sender;
+
+@property (weak, nonatomic) IBOutlet UILabel *teamA;
+@property (weak, nonatomic) IBOutlet UILabel *teamB;
+
+@property (weak, nonatomic) IBOutlet UILabel *playerA1;
+@property (weak, nonatomic) IBOutlet UILabel *playerA2;
+@property (weak, nonatomic) IBOutlet UILabel *playerA3;
+@property (weak, nonatomic) IBOutlet UILabel *playerA4;
+@property (weak, nonatomic) IBOutlet UILabel *playerA5;
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view, typically from a nib.
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)NewGameButton:(UIButton *)sender {
+    NSString *title = @"Équipe A";
+    NSString *message = @"Veuillez entrer le nom et numéro des joueur de l'équipe A\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+    UIAlertController *alert = [UIAlertController
+                               alertControllerWithTitle: title
+                               message: message
+                               preferredStyle:UIAlertControllerStyleAlert];
+    alert.modalInPopover = true;
+    
+    UIView *inputView = [[UIView alloc] initWithFrame:CGRectMake(0, 75, 300, 100)];
+    
+    UILabel *teamLabel = [[UILabel alloc] initWithFrame:CGRectMake(6, 0, 200, 25)];
+    teamLabel.text = @"Équipe";
+    
+    UITextField *teamNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(6, 25, 256, 25)];
+    teamNameTextField.placeholder = @"Nom de l'équipe";
+    teamNameTextField.borderStyle = UITextBorderStyleRoundedRect;
+    teamNameTextField.keyboardType = UIKeyboardTypeDecimalPad;
+    
+    [inputView addSubview:teamLabel];
+    [inputView addSubview:teamNameTextField];
+    
+    
+    for (int i = 0; i < 5; i++) {
+        UILabel *playerLabel = [[UILabel alloc] initWithFrame:CGRectMake(6, 50+i*50, 200, 25)];
+        playerLabel.text = [NSString stringWithFormat:@"player %i", (i+1)];
+        
+        UITextField *numberTextField = [[UITextField alloc] initWithFrame:CGRectMake(6, 75+i*50, 50, 25)];
+        numberTextField.placeholder = @"#";
+        numberTextField.borderStyle = UITextBorderStyleRoundedRect;
+        numberTextField.keyboardType = UIKeyboardTypeDecimalPad;
+    
+        UITextField *firstNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(62, 75+i*50, 97, 25)];
+        firstNameTextField.placeholder = @"Prénom";
+        firstNameTextField.borderStyle = UITextBorderStyleRoundedRect;
+        firstNameTextField.keyboardType = UIKeyboardTypeDecimalPad;
+    
+        UITextField *lastNameTextField = [[UITextField alloc] initWithFrame:CGRectMake(165, 75+i*50, 97, 25)];
+        lastNameTextField.placeholder = @"Nom";
+        lastNameTextField.borderStyle = UITextBorderStyleRoundedRect;
+        lastNameTextField.keyboardType = UIKeyboardTypeDecimalPad;
+        
+        [inputView addSubview:playerLabel];
+        [inputView addSubview:numberTextField];
+        [inputView addSubview:firstNameTextField];
+        [inputView addSubview:lastNameTextField];
+    }
+    
+    [alert.view addSubview:inputView];
+    
+    [alert addAction:
+        [UIAlertAction
+         actionWithTitle:@"OK"
+         style:UIAlertActionStyleDefault
+         handler:^(UIAlertAction *action) {}]];
+   
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+@end
+

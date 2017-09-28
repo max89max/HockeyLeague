@@ -13,10 +13,6 @@
 		E8422A781F6B065500C2F793 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8422A761F6B065500C2F793 /* Main.storyboard */; };
 		E8422A7A1F6B065500C2F793 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8422A791F6B065500C2F793 /* Assets.xcassets */; };
 		E8422A7D1F6B065500C2F793 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8422A7B1F6B065500C2F793 /* LaunchScreen.storyboard */; };
-		F70C5A941F744433004D2DA3 /* hockey.png in Resources */ = {isa = PBXBuildFile; fileRef = F70C5A931F744433004D2DA3 /* hockey.png */; };
-		F70C5A961F7447BF004D2DA3 /* circle-512.png in Resources */ = {isa = PBXBuildFile; fileRef = F70C5A951F7447BF004D2DA3 /* circle-512.png */; };
-		F75B82A11F744C7A004B0F3F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F75B82A01F744C7A004B0F3F /* Default.png */; };
-		F75B82A31F744C7E004B0F3F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F75B82A21F744C7E004B0F3F /* Default@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,10 +26,6 @@
 		E8422A791F6B065500C2F793 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E8422A7C1F6B065500C2F793 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E8422A7E1F6B065500C2F793 /* Info.plist */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = Info.plist; sourceTree = "<group>"; };
-		F70C5A931F744433004D2DA3 /* hockey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hockey.png; path = ../../hockey.png; sourceTree = "<group>"; };
-		F70C5A951F7447BF004D2DA3 /* circle-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "circle-512.png"; path = "../../circle-512.png"; sourceTree = "<group>"; };
-		F75B82A01F744C7A004B0F3F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../../splash_screen/Default.png; sourceTree = "<group>"; };
-		F75B82A21F744C7E004B0F3F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../../splash_screen/Default@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,10 +74,6 @@
 		E8422A6D1F6B065500C2F793 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F75B82A21F744C7E004B0F3F /* Default@2x.png */,
-				F75B82A01F744C7A004B0F3F /* Default.png */,
-				F70C5A951F7447BF004D2DA3 /* circle-512.png */,
-				F70C5A931F744433004D2DA3 /* hockey.png */,
 				E8422A6E1F6B065500C2F793 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -149,13 +137,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F70C5A941F744433004D2DA3 /* hockey.png in Resources */,
-				F75B82A11F744C7A004B0F3F /* Default.png in Resources */,
 				E8422A7D1F6B065500C2F793 /* LaunchScreen.storyboard in Resources */,
 				E8422A7A1F6B065500C2F793 /* Assets.xcassets in Resources */,
 				E8422A781F6B065500C2F793 /* Main.storyboard in Resources */,
-				F75B82A31F744C7E004B0F3F /* Default@2x.png in Resources */,
-				F70C5A961F7447BF004D2DA3 /* circle-512.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -43,6 +43,9 @@
                                         <rect key="frame" x="204" y="141" width="201" height="53"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Changer de période"/>
+                                        <connections>
+                                            <action selector="ChangePeriod:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gsF-Sf-EHY"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vle-jX-VLL">
                                         <rect key="frame" x="28" y="61" width="186" height="163"/>
@@ -400,11 +403,19 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
+                        <outlet property="ChangerPeriodButton" destination="Tkl-Yg-ugf" id="3IH-mu-hOk"/>
+                        <outlet property="NewGameButton" destination="Hrp-ZL-Gep" id="ibX-Tl-HTh"/>
+                        <outlet property="period" destination="4q5-Gm-hCA" id="sN8-f7-3in"/>
                         <outlet property="playerA1" destination="Qde-wb-Pku" id="1Id-WT-t9V"/>
                         <outlet property="playerA2" destination="Mee-jT-g90" id="bA6-FQ-6GE"/>
                         <outlet property="playerA3" destination="HjG-MB-9fl" id="hXZ-HJ-xQy"/>
                         <outlet property="playerA4" destination="3RT-ka-bLs" id="Hfa-Bf-80a"/>
                         <outlet property="playerA5" destination="Gqz-ef-2o3" id="irC-tr-N9Z"/>
+                        <outlet property="playerB1" destination="Bee-yy-7Y7" id="QRA-Ox-f8L"/>
+                        <outlet property="playerB2" destination="Kxf-28-byT" id="mBx-Ax-SSc"/>
+                        <outlet property="playerB3" destination="woy-fQ-XPC" id="dNq-wP-a9f"/>
+                        <outlet property="playerB4" destination="HUx-BT-PfG" id="424-uw-og3"/>
+                        <outlet property="playerB5" destination="4BT-fX-r1G" id="nF7-6q-jRd"/>
                         <outlet property="teamA" destination="jPV-3M-OOl" id="dDo-85-igO"/>
                         <outlet property="teamB" destination="MeD-3i-z1T" id="Soc-So-MDO"/>
                     </connections>

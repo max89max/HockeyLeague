@@ -49,12 +49,19 @@
 @implementation ViewController
 
 int periodCounter = 1;
+int indexMarqueur = 0;
+int indexPasse1 = 0;
+int indexPasse2 = 0;
 
 NSMutableArray<NSString *> *teamAarray;
 NSMutableArray<NSString *> *teamBarray;
 
+NSMutableArray<Player *> *teamAPlayerarray;
+NSMutableArray<Player *> *teamBPlayerarray;
+
 NSMutableArray<NSString*>* addGoalArray;
 NSMutableArray<NSMutableString*>* goalLogArray;
+
 UITextField* currentSelectedTextField;
 
 - (void)viewDidLoad {
@@ -62,6 +69,8 @@ UITextField* currentSelectedTextField;
     // Do any additional setup after loading the view, typically from a nib.
     teamAarray = [[NSMutableArray alloc] init];
     teamBarray = [[NSMutableArray alloc] init];
+    teamAPlayerarray = [[NSMutableArray alloc] init];
+    teamBPlayerarray = [[NSMutableArray alloc] init];
     addGoalArray = [[NSMutableArray alloc] init];
     goalLogArray = [[NSMutableArray alloc] init];
 }
@@ -75,8 +84,11 @@ UITextField* currentSelectedTextField;
 - (IBAction)NewGameButton:(UIButton *)sender {
     teamAarray = [[NSMutableArray alloc] init];
     teamBarray = [[NSMutableArray alloc] init];
+    teamAPlayerarray = [[NSMutableArray alloc] init];
+    teamBPlayerarray = [[NSMutableArray alloc] init];
     addGoalArray = [[NSMutableArray alloc] init];
     goalLogArray = [[NSMutableArray alloc] init];
+    [_LogTableView reloadData];
     
     NSString *title = @"Équipe Maison";
     NSString *message = @"Veuillez entrer le nom et numéro des joueur de l'équipe\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
@@ -106,6 +118,8 @@ UITextField* currentSelectedTextField;
           
           for (int i = 0 ; i < 5; i++) {
               [teamAarray addObject: [NSString stringWithFormat:@"%@, %@, %@", numberATextFields[i].text, firstNameATextFields[i].text, lastNameATextFields[i].text]];
+              Player *player = [[Player alloc] initPlayer: firstNameATextFields[i].text nom:lastNameATextFields[i].text numero:numberATextFields[i].text];
+              [teamAPlayerarray addObject:player];
               playerALabels[i].text = [NSString stringWithFormat:@"%@, %@, %@", numberATextFields[i].text, firstNameATextFields[i].text, lastNameATextFields[i].text];
           }
           
@@ -139,6 +153,8 @@ UITextField* currentSelectedTextField;
                 for (int i = 0 ; i < 5; i++) {
                     [teamBarray addObject: [NSString stringWithFormat:@"%@, %@, %@", numberBTextFields[i].text, firstNameBTextFields[i].text, lastNameBTextFields[i].text]];
                     playerBLabels[i].text = [NSString stringWithFormat:@"%@, %@, %@", numberBTextFields[i].text, firstNameBTextFields[i].text, lastNameBTextFields[i].text];
+                    Player *player = [[Player alloc] initPlayer: firstNameBTextFields[i].text nom:lastNameBTextFields[i].text numero:numberBTextFields[i].text];
+                    [teamBPlayerarray addObject:player];
                 }
                 
                 _teamB.text = [NSString stringWithFormat:@"Équipe %@", teamNameBTextField.text];
@@ -196,6 +212,7 @@ UITextField* currentSelectedTextField;
                                                       style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction *action) {}]];
                                  [self presentViewController:endGame animated:YES completion:nil];
+                                 [self presentEtoile];
                              }
 
     }]];
@@ -231,6 +248,8 @@ UITextField* currentSelectedTextField;
     _MarqueurGoalField.text = @"";
     _Passe1GoalField.text = @"";
     _Passe2GoalField.text = @"";
+    
+    [self hidePickerView];
 }
 
 - (void) addTeam:(UIAlertController *) controller
@@ -316,12 +335,20 @@ numberOfRowsInComponent:(NSInteger)component {
        inComponent:(NSInteger)component {
     
     currentSelectedTextField.text = addGoalArray[row];
+    if(currentSelectedTextField.tag == 1)
+        indexMarqueur = row;
+    else if(currentSelectedTextField.tag == 2)
+        indexPasse1 = row;
+    else if(currentSelectedTextField.tag == 3)
+        indexPasse2 = row;
+    
     [self hidePickerView];
     
 }
 
 - (IBAction)ChangeÉquipeGoal:(UITextField *)sender {
     currentSelectedTextField = sender;
+    addGoalArray = [[NSMutableArray alloc] init];
     [addGoalArray addObject:_teamA.text];
     [addGoalArray addObject:_teamB.text];
     [self showPickerView];
@@ -329,7 +356,7 @@ numberOfRowsInComponent:(NSInteger)component {
  
 - (IBAction)ChangeMarqueurGoal:(UITextField *)sender {
      currentSelectedTextField = sender;
-     if(_ÉquipeGoalField.text == _teamA.text)
+     if([_ÉquipeGoalField.text isEqualToString: _teamA.text])
      {
          addGoalArray = teamAarray;
      }
@@ -342,7 +369,7 @@ numberOfRowsInComponent:(NSInteger)component {
  
 - (IBAction)ChangePasse1Goal:(UITextField *)sender {
      currentSelectedTextField = sender;
-     if(_ÉquipeGoalField.text == _teamA.text)
+     if([_ÉquipeGoalField.text isEqualToString: _teamA.text])
      {
          addGoalArray = teamAarray;
      }
@@ -355,7 +382,7 @@ numberOfRowsInComponent:(NSInteger)component {
  
 - (IBAction)ChangePasse2Goal:(UITextField *)sender {
      currentSelectedTextField = sender;
-     if(_ÉquipeGoalField.text == _teamA.text)
+     if([_ÉquipeGoalField.text isEqualToString: _teamA.text])
      {
          addGoalArray = teamAarray;
      }
@@ -368,29 +395,63 @@ numberOfRowsInComponent:(NSInteger)component {
 
 
 - (IBAction)AddGoalButton:(UIButton *)sender {
-    NSMutableString *goalLog = [NSMutableString stringWithString:@""];
     
-    NSString* periode = [NSString stringWithFormat:@"%i", periodCounter];
-    [goalLog appendString:periode];
-    NSString* team = _ÉquipeGoalField.text;
-    [goalLog appendString:team];
-    NSString* scorer = [_MarqueurGoalField.text componentsSeparatedByString:@" "][0];
-    [goalLog appendString:scorer];
-    NSString* assist1 = [_Passe1GoalField.text componentsSeparatedByString:@" "][0];
-    [goalLog appendString:assist1];
-    NSString* assist2 = [_Passe2GoalField.text componentsSeparatedByString:@" "][0];
-    [goalLog appendString:assist2];
-    [goalLogArray addObject:goalLog];
-    
-    _ÉquipeGoalField.text = @"";
-    _MarqueurGoalField.text = @"";
-    _Passe1GoalField.text = @"";
-    _Passe2GoalField.text = @"";
-    
-    [_LogTableView reloadData];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
-    [_LogTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    if([_ÉquipeGoalField.text length] != 0 && [_MarqueurGoalField.text length] != 0)
+    {
+        NSMutableArray<Player *>* goalTeamArray = [[NSMutableArray alloc] init];
+        if([_ÉquipeGoalField.text isEqualToString: _teamA.text])
+        {
+            goalTeamArray = teamAPlayerarray;
+        }
+        else
+        {
+            goalTeamArray = teamBPlayerarray;
+        }
+        
+        
+        NSMutableString *goalLog = [NSMutableString stringWithString:@"Période : "];
+        
+        NSString* periode = [NSString stringWithFormat:@"%i", periodCounter];
+        [goalLog appendString:periode];
+        NSString* team = _ÉquipeGoalField.text;
+        [goalLog appendString: @", "];
+        [goalLog appendString: team];
+        [goalLog appendString: @", Marqueur :"];
+        NSString* scorer = goalTeamArray[indexMarqueur].nom;
+        goalTeamArray[indexMarqueur].but += 1;
+        goalTeamArray[indexMarqueur].score += 2;
+        [goalLog appendString:scorer];
+        [goalLog appendString: @", Passe 1 :"];
+        NSString* assist1 = goalTeamArray[indexPasse1].nom;
+        goalTeamArray[indexPasse1].passe += 1;
+        goalTeamArray[indexPasse1].score += 1;
+        [goalLog appendString:assist1];
+        [goalLog appendString: @", Passe 2 :"];
+        NSString* assist2 = goalTeamArray[indexPasse2].nom;
+        goalTeamArray[indexPasse2].passe += 1;
+        goalTeamArray[indexPasse2].score += 1;
+        [goalLog appendString:assist2];
+        [goalLogArray addObject:goalLog];
+        
+        _ÉquipeGoalField.text = @"";
+        _MarqueurGoalField.text = @"";
+        _Passe1GoalField.text = @"";
+        _Passe2GoalField.text = @"";
+        
+        [_LogTableView reloadData];
+    }
+    else
+    {
+        UIAlertController *erreurAlert = [UIAlertController
+                                      alertControllerWithTitle: @"Erreur"
+                                      message: @"Les champs Équipe et marqueur ne doivent pas être vide!"
+                                      preferredStyle:UIAlertControllerStyleAlert];
+        [erreurAlert addAction:[UIAlertAction
+                            actionWithTitle:@"OK"
+                            style:UIAlertActionStyleDefault
+                            handler:^(UIAlertAction *action) {}]];
+        [self presentViewController:erreurAlert animated:YES completion:nil];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -401,7 +462,7 @@ numberOfRowsInComponent:(NSInteger)component {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return [goalLogArray count];    //count number of row from counting array hear cataGorry is An Array
+    return goalLogArray.count;    //count number of row from counting array hear cataGorry is An Array
 }
 
 
@@ -409,12 +470,80 @@ numberOfRowsInComponent:(NSInteger)component {
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *MyIdentifier = @"TableView";
+    static NSString *MyIdentifier = @"cellIdentifier";
     
-    TableCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+    CustomCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+
+    if(cell == nil) {
+        cell = [[CustomCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
+        
+    }
     
-    cell.goalLogLabel.text = [goalLogArray objectAtIndex:(NSUInteger)indexPath];
+    cell.textLabel.text = [goalLogArray objectAtIndex:indexPath.row];
     return cell;
 }
+
+- (void)presentEtoile{
+    NSArray *newPlayerArray=[teamAPlayerarray arrayByAddingObjectsFromArray:teamBPlayerarray];
+    
+    NSMutableArray<Player *>* etoilePlayerArray = [[NSMutableArray alloc] init];
+    
+    for(int i =0; i< [newPlayerArray count]; i++)
+    {
+        int indexPos = -1;
+        Player* currentPlayer = (Player*)newPlayerArray[i];
+        int* score = currentPlayer.score;
+        
+        if([etoilePlayerArray count] != 0)
+        {
+            for(int j =0; j< [etoilePlayerArray count]; j++)
+            {
+                if(score > etoilePlayerArray[j].score)
+                    indexPos = j;
+            }
+            if(indexPos != -1)
+            {
+                if([etoilePlayerArray count] != 3)
+                {
+                    [etoilePlayerArray removeObjectAtIndex:0];
+                }
+                [etoilePlayerArray insertObject:currentPlayer atIndex:indexPos];
+            }
+        }
+        else
+        {
+            [etoilePlayerArray addObject:currentPlayer];
+        }
+    }
+    
+    for(int k =0; k< [etoilePlayerArray count]; k++)
+    {
+        Player *player = etoilePlayerArray[k];
+        NSString *etoile = [NSString stringWithFormat:@"%i", 3-k];
+        
+        NSMutableString *etoileMessage = [NSMutableString stringWithString:@"Étoile :  "];
+        [etoileMessage appendString: etoile];
+        [etoileMessage appendString: @" revient à "];
+        [etoileMessage appendString: player.nom];
+        [etoileMessage appendString: @" avec "];
+        NSString *but = [NSString stringWithFormat:@"%i", player.but];
+        [etoileMessage appendString: but];
+        [etoileMessage appendString: @" buts et "];
+        NSString *passe = [NSString stringWithFormat:@"%i", player.passe];
+        [etoileMessage appendString: passe];
+        [etoileMessage appendString: @" passes "];
+        
+        UIAlertController *etoile3Alert = [UIAlertController
+                                           alertControllerWithTitle: @"Les étoiles du match"
+                                           message: etoileMessage
+                                           preferredStyle:UIAlertControllerStyleAlert];
+        [etoile3Alert addAction:[UIAlertAction
+                                 actionWithTitle:@"OK"
+                                 style:UIAlertActionStyleDefault
+                                 handler:^(UIAlertAction *action) {}]];
+        [self presentViewController:etoile3Alert animated:YES completion:nil];
+    }
+}
+
 @end
 

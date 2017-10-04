@@ -13,7 +13,8 @@
 		E8422A781F6B065500C2F793 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8422A761F6B065500C2F793 /* Main.storyboard */; };
 		E8422A7A1F6B065500C2F793 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8422A791F6B065500C2F793 /* Assets.xcassets */; };
 		E8422A7D1F6B065500C2F793 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8422A7B1F6B065500C2F793 /* LaunchScreen.storyboard */; };
-		E8B583261F82DA4D0053185D /* TableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E8B583251F82DA4D0053185D /* TableCell.m */; };
+		E8972E701F853A4000FC1C74 /* CustomCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E8972E6F1F853A4000FC1C74 /* CustomCellTableViewCell.m */; };
+		E8972E761F853FF400FC1C74 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = E8972E751F853FF400FC1C74 /* Player.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,8 +28,10 @@
 		E8422A791F6B065500C2F793 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E8422A7C1F6B065500C2F793 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E8422A7E1F6B065500C2F793 /* Info.plist */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = Info.plist; sourceTree = "<group>"; };
-		E8B583241F82DA4D0053185D /* TableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableCell.h; sourceTree = "<group>"; };
-		E8B583251F82DA4D0053185D /* TableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableCell.m; sourceTree = "<group>"; };
+		E8972E6E1F853A4000FC1C74 /* CustomCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCellTableViewCell.h; sourceTree = "<group>"; };
+		E8972E6F1F853A4000FC1C74 /* CustomCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCellTableViewCell.m; sourceTree = "<group>"; };
+		E8972E741F853FF400FC1C74 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		E8972E751F853FF400FC1C74 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +81,10 @@
 			isa = PBXGroup;
 			children = (
 				E8422A6E1F6B065500C2F793 /* main.m */,
-				E8B583241F82DA4D0053185D /* TableCell.h */,
-				E8B583251F82DA4D0053185D /* TableCell.m */,
+				E8972E6E1F853A4000FC1C74 /* CustomCellTableViewCell.h */,
+				E8972E6F1F853A4000FC1C74 /* CustomCellTableViewCell.m */,
+				E8972E741F853FF400FC1C74 /* Player.h */,
+				E8972E751F853FF400FC1C74 /* Player.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -157,8 +162,9 @@
 			files = (
 				E8422A751F6B065500C2F793 /* ViewController.m in Sources */,
 				E8422A721F6B065500C2F793 /* AppDelegate.m in Sources */,
-				E8B583261F82DA4D0053185D /* TableCell.m in Sources */,
+				E8972E701F853A4000FC1C74 /* CustomCellTableViewCell.m in Sources */,
 				E8422A6F1F6B065500C2F793 /* main.m in Sources */,
+				E8972E761F853FF400FC1C74 /* Player.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

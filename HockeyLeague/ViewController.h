@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TableCell.h"
+#import "CustomCellTableViewCell.h"
+#import "Player.h"
 @interface ViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIButton *ChangerPeriodButton;

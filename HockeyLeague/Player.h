@@ -16,9 +16,9 @@
 @property NSString *prenom;
 @property NSString *nom;
 @property NSString *numero;
-@property int *but;
-@property int *passe;
-@property int *score;
+@property int but;
+@property int passe;
+@property int score;
 
 - (Player*)initPlayer: (NSString *)prenom_ nom:(NSString *)nom_ numero:(NSString *)numero_;
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E81D98B51F86B35E00A8C924 /* logo-joueur-de-hockey_355-6002.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E81D98B41F86B35E00A8C924 /* logo-joueur-de-hockey_355-6002.jpg */; };
 		E8422A6F1F6B065500C2F793 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E8422A6E1F6B065500C2F793 /* main.m */; };
 		E8422A721F6B065500C2F793 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E8422A711F6B065500C2F793 /* AppDelegate.m */; };
 		E8422A751F6B065500C2F793 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E8422A741F6B065500C2F793 /* ViewController.m */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E81D98B41F86B35E00A8C924 /* logo-joueur-de-hockey_355-6002.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "logo-joueur-de-hockey_355-6002.jpg"; sourceTree = "<group>"; };
 		E8422A6A1F6B065500C2F793 /* HockeyLeague.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HockeyLeague.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8422A6E1F6B065500C2F793 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E8422A701F6B065500C2F793 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 		E8422A6D1F6B065500C2F793 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E81D98B41F86B35E00A8C924 /* logo-joueur-de-hockey_355-6002.jpg */,
 				E8422A6E1F6B065500C2F793 /* main.m */,
 				E8972E6E1F853A4000FC1C74 /* CustomCellTableViewCell.h */,
 				E8972E6F1F853A4000FC1C74 /* CustomCellTableViewCell.m */,
@@ -149,6 +152,7 @@
 			files = (
 				E8422A7D1F6B065500C2F793 /* LaunchScreen.storyboard in Resources */,
 				E8422A7A1F6B065500C2F793 /* Assets.xcassets in Resources */,
+				E81D98B51F86B35E00A8C924 /* logo-joueur-de-hockey_355-6002.jpg in Resources */,
 				E8422A781F6B065500C2F793 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

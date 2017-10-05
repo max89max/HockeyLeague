@@ -32,12 +32,8 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circle-512.png" translatesAutoresizingMaskIntoConstraints="NO" id="68S-rY-pEy">
-                                        <rect key="frame" x="928" y="440" width="500" height="500"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hockey.png" translatesAutoresizingMaskIntoConstraints="NO" id="Lma-i7-UfE">
-                                        <rect key="frame" x="1003" y="515" width="350" height="350"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo-joueur-de-hockey_355-6002.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="aSR-c5-foW">
+                                        <rect key="frame" x="748" y="486" width="899" height="478"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
@@ -49,11 +45,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52" y="297"/>
+            <point key="canvasLocation" x="51.830161054172763" y="296.484375"/>
         </scene>
     </scenes>
     <resources>
-        <image name="circle-512.png" width="512" height="512"/>
-        <image name="hockey.png" width="128" height="128"/>
+        <image name="logo-joueur-de-hockey_355-6002.jpg" width="626" height="396"/>
     </resources>
 </document>

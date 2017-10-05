@@ -34,6 +34,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *playerB5;
 
 @property (weak, nonatomic) IBOutlet UILabel *period;
+@property (weak, nonatomic) IBOutlet UILabel *butEquipeA;
+@property (weak, nonatomic) IBOutlet UILabel *butEquipeB;
+@property (weak, nonatomic) IBOutlet UIButton *goalButton;
 
 
 @property (weak, nonatomic) IBOutlet UIView *pickerView;
@@ -52,6 +55,9 @@ int periodCounter = 1;
 int indexMarqueur = 0;
 int indexPasse1 = 0;
 int indexPasse2 = 0;
+
+int goalTeamA = 0;
+int goalTeamB = 0;
 
 NSMutableArray<NSString *> *teamAarray;
 NSMutableArray<NSString *> *teamBarray;
@@ -82,13 +88,7 @@ UITextField* currentSelectedTextField;
 }
 
 - (IBAction)NewGameButton:(UIButton *)sender {
-    teamAarray = [[NSMutableArray alloc] init];
-    teamBarray = [[NSMutableArray alloc] init];
-    teamAPlayerarray = [[NSMutableArray alloc] init];
-    teamBPlayerarray = [[NSMutableArray alloc] init];
-    addGoalArray = [[NSMutableArray alloc] init];
-    goalLogArray = [[NSMutableArray alloc] init];
-    [_LogTableView reloadData];
+    [self resetGame];
     
     NSString *title = @"Équipe Maison";
     NSString *message = @"Veuillez entrer le nom et numéro des joueur de l'équipe\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
@@ -163,11 +163,6 @@ UITextField* currentSelectedTextField;
           [self presentViewController:setTeamB animated:YES completion:nil];
       }]];
     [self presentViewController:setTeamA animated:YES completion:nil];
-    
-    _ÉquipeGoalField.enabled = YES;
-    _MarqueurGoalField.enabled = YES;
-    _Passe1GoalField.enabled = YES;
-    _Passe2GoalField.enabled = YES;
 }
 
 - (IBAction)ChangePeriod:(UIButton *)sender {
@@ -189,12 +184,16 @@ UITextField* currentSelectedTextField;
                          style:UIAlertActionStyleDefault
                          handler:^(UIAlertAction *action) {
                              periodCounter ++;
-                             _period.text = [NSString stringWithFormat:@"Période : %i", periodCounter];
                              if (nextPeriod + 1 >= 4) {
                                  [sender setTitle:@"fin de partie" forState:UIControlStateNormal];
                              }
                              if (nextPeriod == 4) {
                                  _ChangerPeriodButton.enabled = NO;
+                                 _ÉquipeGoalField.enabled = NO;
+                                 _MarqueurGoalField.enabled = NO;
+                                 _Passe1GoalField.enabled = NO;
+                                 _Passe2GoalField.enabled = NO;
+                                 _goalButton.enabled = NO;
                                  NSString *endGameMessage = @"";
                                  if (scoreA < scoreB) {
                                      endGameMessage = [NSString stringWithFormat:@"%@ a gagné!", _teamB.text];
@@ -210,11 +209,12 @@ UITextField* currentSelectedTextField;
                                  [endGame addAction:[UIAlertAction
                                                       actionWithTitle:@"OK"
                                                       style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {}]];
+                                                     handler:^(UIAlertAction *action) {[self presentEtoile];}]];
                                  [self presentViewController:endGame animated:YES completion:nil];
-                                 [self presentEtoile];
                              }
-
+                             else
+                                 _period.text = [NSString stringWithFormat:@"Période : %i", periodCounter];
+                            
     }]];
     
     [areYouSure addAction:[UIAlertAction
@@ -228,7 +228,17 @@ UITextField* currentSelectedTextField;
     
 }
 
-- (void)resetGame {
+- (void)resetGame
+{
+    teamAarray = [[NSMutableArray alloc] init];
+    teamBarray = [[NSMutableArray alloc] init];
+    teamAPlayerarray = [[NSMutableArray alloc] init];
+    teamBPlayerarray = [[NSMutableArray alloc] init];
+    addGoalArray = [[NSMutableArray alloc] init];
+    goalLogArray = [[NSMutableArray alloc] init];
+
+    [_LogTableView reloadData];
+    
     _teamA.text = @"ÉquiepA";
     _teamA.text = @"ÉquiepB";
     
@@ -248,6 +258,20 @@ UITextField* currentSelectedTextField;
     _MarqueurGoalField.text = @"";
     _Passe1GoalField.text = @"";
     _Passe2GoalField.text = @"";
+    
+    _butEquipeA.text = @"0";
+    _butEquipeB.text = @"0";
+    
+    _period.text = @"Période : 1";
+    periodCounter = 1;
+    [_ChangerPeriodButton setTitle:@"Changer de période" forState:UIControlStateNormal];
+    
+    _ÉquipeGoalField.enabled = YES;
+    _MarqueurGoalField.enabled = YES;
+    _Passe1GoalField.enabled = YES;
+    _Passe2GoalField.enabled = YES;
+    _ChangerPeriodButton.enabled = YES;
+    _goalButton.enabled = YES;
     
     [self hidePickerView];
 }
@@ -402,10 +426,15 @@ numberOfRowsInComponent:(NSInteger)component {
         if([_ÉquipeGoalField.text isEqualToString: _teamA.text])
         {
             goalTeamArray = teamAPlayerarray;
+            goalTeamA ++;
+            _butEquipeA.text = [NSString stringWithFormat:@"%i", goalTeamA];
         }
         else
         {
             goalTeamArray = teamBPlayerarray;
+            goalTeamB ++;
+            _butEquipeB.text = [NSString stringWithFormat:@"%i", goalTeamB];
+
         }
         
         
@@ -492,22 +521,26 @@ numberOfRowsInComponent:(NSInteger)component {
     {
         int indexPos = -1;
         Player* currentPlayer = (Player*)newPlayerArray[i];
-        int* score = currentPlayer.score;
+        int score = currentPlayer.score;
         
         if([etoilePlayerArray count] != 0)
         {
             for(int j =0; j< [etoilePlayerArray count]; j++)
             {
-                if(score > etoilePlayerArray[j].score)
+                if(score >= etoilePlayerArray[j].score)
                     indexPos = j;
             }
             if(indexPos != -1)
             {
-                if([etoilePlayerArray count] != 3)
+                if([etoilePlayerArray count] == 3)
                 {
                     [etoilePlayerArray removeObjectAtIndex:0];
                 }
                 [etoilePlayerArray insertObject:currentPlayer atIndex:indexPos];
+            }
+            else if([etoilePlayerArray count] != 3)
+            {
+                [etoilePlayerArray insertObject:currentPlayer atIndex:0];
             }
         }
         else
@@ -516,33 +549,55 @@ numberOfRowsInComponent:(NSInteger)component {
         }
     }
     
-    for(int k =0; k< [etoilePlayerArray count]; k++)
-    {
-        Player *player = etoilePlayerArray[k];
-        NSString *etoile = [NSString stringWithFormat:@"%i", 3-k];
-        
-        NSMutableString *etoileMessage = [NSMutableString stringWithString:@"Étoile :  "];
-        [etoileMessage appendString: etoile];
-        [etoileMessage appendString: @" revient à "];
-        [etoileMessage appendString: player.nom];
-        [etoileMessage appendString: @" avec "];
-        NSString *but = [NSString stringWithFormat:@"%i", player.but];
-        [etoileMessage appendString: but];
-        [etoileMessage appendString: @" buts et "];
-        NSString *passe = [NSString stringWithFormat:@"%i", player.passe];
-        [etoileMessage appendString: passe];
-        [etoileMessage appendString: @" passes "];
-        
-        UIAlertController *etoile3Alert = [UIAlertController
-                                           alertControllerWithTitle: @"Les étoiles du match"
-                                           message: etoileMessage
-                                           preferredStyle:UIAlertControllerStyleAlert];
-        [etoile3Alert addAction:[UIAlertAction
-                                 actionWithTitle:@"OK"
-                                 style:UIAlertActionStyleDefault
-                                 handler:^(UIAlertAction *action) {}]];
-        [self presentViewController:etoile3Alert animated:YES completion:nil];
-    }
+    Player *player = etoilePlayerArray[2];
+    
+    NSMutableString *etoileMessage = [NSMutableString stringWithString:@"La première étoile revient à "];
+    [etoileMessage appendString: player.prenom];
+    [etoileMessage appendString: @" "];
+    [etoileMessage appendString: player.nom];
+    [etoileMessage appendString: @" avec "];
+    NSString *but = [NSString stringWithFormat:@"%i", player.but];
+    [etoileMessage appendString: but];
+    [etoileMessage appendString: @" buts et "];
+    NSString *passe = [NSString stringWithFormat:@"%i", player.passe];
+    [etoileMessage appendString: passe];
+    [etoileMessage appendString: @" passes \n"];
+    
+    player = etoilePlayerArray[1];
+    [etoileMessage appendString: @"La deuxième étoile revient à "];
+    [etoileMessage appendString: player.prenom];
+    [etoileMessage appendString: @" "];
+    [etoileMessage appendString: player.nom];
+    [etoileMessage appendString: @" avec "];
+    but = [NSString stringWithFormat:@"%i", player.but];
+    [etoileMessage appendString: but];
+    [etoileMessage appendString: @" buts et "];
+    passe = [NSString stringWithFormat:@"%i", player.passe];
+    [etoileMessage appendString: passe];
+    [etoileMessage appendString: @" passes \n"];
+    
+    player = etoilePlayerArray[0];
+    [etoileMessage appendString: @"La troisième étoile revient à "];
+    [etoileMessage appendString: player.prenom];
+    [etoileMessage appendString: @" "];
+    [etoileMessage appendString: player.nom];
+    [etoileMessage appendString: @" avec "];
+    but = [NSString stringWithFormat:@"%i", player.but];
+    [etoileMessage appendString: but];
+    [etoileMessage appendString: @" buts et "];
+    passe = [NSString stringWithFormat:@"%i", player.passe];
+    [etoileMessage appendString: passe];
+    [etoileMessage appendString: @" passes "];
+    
+    UIAlertController *etoile3Alert = [UIAlertController
+                                       alertControllerWithTitle: @"Les étoiles du match"
+                                       message: etoileMessage
+                                       preferredStyle:UIAlertControllerStyleAlert];
+    [etoile3Alert addAction:[UIAlertAction
+                             actionWithTitle:@"OK"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction *action) {}]];
+    [self presentViewController:etoile3Alert animated:YES completion:nil];
 }
 
 @end

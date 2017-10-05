@@ -39,7 +39,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tkl-Yg-ugf">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tkl-Yg-ugf">
                                         <rect key="frame" x="204" y="141" width="201" height="53"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Changer de période"/>
@@ -221,9 +221,12 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cMz-mb-Wo1">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cMz-mb-Wo1">
                                         <rect key="frame" x="225" y="294" width="98" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <bool key="isElement" value="NO"/>
+                                        </accessibility>
                                         <state key="normal" title="Ajouter un but"/>
                                         <connections>
                                             <action selector="AddGoalButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dd7-0k-jXo"/>
@@ -306,6 +309,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
+                        <outlet property="ButEquipeB" destination="mwq-UG-8dc" id="Kcb-hx-pVr"/>
                         <outlet property="ChangerPeriodButton" destination="Tkl-Yg-ugf" id="3IH-mu-hOk"/>
                         <outlet property="ÉquipeGoalField" destination="4cN-uz-2mK" id="qth-3r-qml"/>
                         <outlet property="LogTableView" destination="Um6-OP-mML" id="9Ra-Ky-vDc"/>
@@ -313,6 +317,9 @@
                         <outlet property="NewGameButton" destination="Hrp-ZL-Gep" id="ibX-Tl-HTh"/>
                         <outlet property="Passe1GoalField" destination="3vj-Bp-cv5" id="fXs-4r-8gA"/>
                         <outlet property="Passe2GoalField" destination="b6k-Lo-bTp" id="3bU-lw-IqP"/>
+                        <outlet property="butEquipeA" destination="vle-jX-VLL" id="cXN-Fx-6Aa"/>
+                        <outlet property="butEquipeB" destination="mwq-UG-8dc" id="NcN-Qf-nmN"/>
+                        <outlet property="goalButton" destination="cMz-mb-Wo1" id="xRM-X1-Xrq"/>
                         <outlet property="period" destination="4q5-Gm-hCA" id="sN8-f7-3in"/>
                         <outlet property="picker" destination="U2t-Ri-CtT" id="deJ-yq-ZSs"/>
                         <outlet property="pickerView" destination="po0-Oy-mcs" id="7ze-aK-PD5"/>
